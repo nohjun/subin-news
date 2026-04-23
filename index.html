@@ -1,20 +1,263 @@
-<!-- index.html 예시 -->
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>박수빈의 취업</title>
-  <meta property="og:title" content="박수빈의 취업, 사회의 잘못은 없나?">
-  <meta property="og:type" content="website">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    body { text-align: center; padding: 10%; font-family: sans-serif; background-color: #f8f8f8; }
-    h1 { font-size: 2.5em; }
-    p { font-size: 1.5em; color: red; }
-  </style>
-</head>
-<body>
-  <h1>박수빈의 취업, 사회의 잘못은 없나?</h1>
-  <p>없다. 박수빈의 잘못이다.</p>
-</body>
-</html>
+ (cd "$(git rev-parse --show-toplevel)" && git apply --3way <<'EOF' 
+diff --git a/index.html b/index.html
+index c141a6ad7bf92c98cb431965f3340bc6621c77c0..54b3e10236988de63e257382dd32a586fc39a5ee 100644
+--- a/index.html
++++ b/index.html
+@@ -1,20 +1,234 @@
+-<!-- index.html 예시 -->
+-<!DOCTYPE html>
+-<html>
+-<head>
+-  <meta charset="UTF-8">
+-  <title>박수빈의 취업</title>
+-  <meta property="og:title" content="박수빈의 취업, 사회의 잘못은 없나?">
+-  <meta property="og:type" content="website">
+-  <meta name="viewport" content="width=device-width, initial-scale=1">
+-  <style>
+-    body { text-align: center; padding: 10%; font-family: sans-serif; background-color: #f8f8f8; }
+-    h1 { font-size: 2.5em; }
+-    p { font-size: 1.5em; color: red; }
+-  </style>
+-</head>
+-<body>
+-  <h1>박수빈의 취업, 사회의 잘못은 없나?</h1>
+-  <p>없다. 박수빈의 잘못이다.</p>
+-</body>
+-</html>
++<!DOCTYPE html>
++<html lang="ko">
++<head>
++  <meta charset="UTF-8" />
++  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
++  <title>공기업 랜덤 선택기</title>
++  <meta property="og:title" content="공기업 랜덤 선택기" />
++  <meta property="og:type" content="website" />
++  <style>
++    :root {
++      --bg: #f5f7fb;
++      --card: #ffffff;
++      --text: #1f2937;
++      --muted: #6b7280;
++      --primary: #2563eb;
++      --danger: #dc2626;
++      --border: #e5e7eb;
++    }
++
++    * { box-sizing: border-box; }
++
++    body {
++      margin: 0;
++      min-height: 100vh;
++      display: flex;
++      align-items: center;
++      justify-content: center;
++      background: var(--bg);
++      color: var(--text);
++      font-family: "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
++      padding: 24px;
++    }
++
++    .app {
++      width: 100%;
++      max-width: 760px;
++      background: var(--card);
++      border: 1px solid var(--border);
++      border-radius: 16px;
++      padding: 24px;
++      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
++    }
++
++    h1 {
++      margin: 0 0 8px;
++      font-size: 1.8rem;
++    }
++
++    .description {
++      margin: 0 0 20px;
++      color: var(--muted);
++      line-height: 1.5;
++    }
++
++    .result-box {
++      border: 1px dashed #93c5fd;
++      background: #eff6ff;
++      border-radius: 12px;
++      padding: 20px;
++      margin-bottom: 16px;
++    }
++
++    .result-label {
++      margin: 0;
++      font-size: 0.9rem;
++      color: var(--muted);
++    }
++
++    .result-value {
++      margin: 8px 0 0;
++      font-size: 1.6rem;
++      font-weight: 700;
++      color: #1d4ed8;
++      min-height: 2.2rem;
++    }
++
++    .row {
++      display: flex;
++      gap: 10px;
++      flex-wrap: wrap;
++      margin-bottom: 16px;
++    }
++
++    button {
++      border: none;
++      border-radius: 10px;
++      padding: 12px 16px;
++      cursor: pointer;
++      font-size: 1rem;
++      font-weight: 600;
++    }
++
++    .btn-primary {
++      background: var(--primary);
++      color: white;
++    }
++
++    .btn-danger {
++      background: var(--danger);
++      color: white;
++    }
++
++    input {
++      flex: 1;
++      min-width: 220px;
++      border: 1px solid var(--border);
++      border-radius: 10px;
++      padding: 12px;
++      font-size: 1rem;
++    }
++
++    .list-wrap {
++      border-top: 1px solid var(--border);
++      padding-top: 14px;
++    }
++
++    .list-wrap h2 {
++      font-size: 1.1rem;
++      margin: 0 0 8px;
++    }
++
++    ul {
++      margin: 0;
++      padding-left: 20px;
++      line-height: 1.8;
++    }
++
++    .empty {
++      color: var(--muted);
++      margin: 0;
++    }
++  </style>
++</head>
++<body>
++  <main class="app">
++    <h1>한국 공기업 랜덤 선택기</h1>
++    <p class="description">
++      아래 버튼을 누르면 공기업이 랜덤으로 선택됩니다. 이름을 입력해 탈락 목록으로 관리할 수 있어요.
++    </p>
++
++    <section class="result-box">
++      <p class="result-label">이번에 선택된 공기업</p>
++      <p id="companyResult" class="result-value">버튼을 눌러 시작하세요</p>
++    </section>
++
++    <div class="row">
++      <button id="drawBtn" class="btn-primary" type="button">랜덤 공기업 뽑기</button>
++    </div>
++
++    <div class="row">
++      <input id="nameInput" type="text" placeholder="탈락 처리할 사람 이름 입력" />
++      <button id="eliminateBtn" class="btn-danger" type="button">탈락 추가</button>
++    </div>
++
++    <section class="list-wrap">
++      <h2>탈락 목록</h2>
++      <p id="emptyText" class="empty">아직 탈락한 사람이 없습니다.</p>
++      <ul id="eliminatedList"></ul>
++    </section>
++  </main>
++
++  <script>
++    const publicCompanies = [
++      "한국전력공사",
++      "한국수자원공사",
++      "한국도로공사",
++      "한국철도공사(KORAIL)",
++      "한국토지주택공사(LH)",
++      "한국가스공사",
++      "한국공항공사",
++      "인천국제공항공사",
++      "한국석유공사",
++      "한국조폐공사",
++      "한국마사회",
++      "한국농어촌공사",
++      "한국방송광고진흥공사",
++      "한국환경공단",
++      "한국장학재단"
++    ];
++
++    const drawBtn = document.getElementById("drawBtn");
++    const companyResult = document.getElementById("companyResult");
++    const nameInput = document.getElementById("nameInput");
++    const eliminateBtn = document.getElementById("eliminateBtn");
++    const eliminatedList = document.getElementById("eliminatedList");
++    const emptyText = document.getElementById("emptyText");
++
++    const eliminatedNames = [];
++
++    drawBtn.addEventListener("click", () => {
++      const randomIndex = Math.floor(Math.random() * publicCompanies.length);
++      companyResult.textContent = publicCompanies[randomIndex];
++    });
++
++    eliminateBtn.addEventListener("click", () => {
++      const name = nameInput.value.trim();
++
++      if (!name) {
++        alert("이름을 입력해주세요.");
++        nameInput.focus();
++        return;
++      }
++
++      eliminatedNames.push(name);
++      renderEliminatedNames();
++      nameInput.value = "";
++      nameInput.focus();
++    });
++
++    nameInput.addEventListener("keydown", (event) => {
++      if (event.key === "Enter") {
++        eliminateBtn.click();
++      }
++    });
++
++    function renderEliminatedNames() {
++      eliminatedList.innerHTML = "";
++
++      if (eliminatedNames.length === 0) {
++        emptyText.style.display = "block";
++        return;
++      }
++
++      emptyText.style.display = "none";
++
++      eliminatedNames.forEach((name, index) => {
++        const li = document.createElement("li");
++        li.textContent = `${index + 1}. ${name}`;
++        eliminatedList.appendChild(li);
++      });
++    }
++  </script>
++</body>
++</html>
+ 
+EOF
+)
